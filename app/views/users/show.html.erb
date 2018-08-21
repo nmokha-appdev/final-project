@@ -1,0 +1,43 @@
+<h1>
+  <%= @user.email %>
+</h1>
+
+<hr>
+
+<a href="/decisions/new" class="btn btn-primary btn-block">
+  <i class="fa fa-fw fa-plus"></i>
+  Add Decision
+</a>
+
+
+<div class="card mt-4">
+  <div class="card-header">
+  User Decisions
+</div>
+
+<ul>
+  <% Decision.where(user_id:@user.id).each do |decision| %>
+  <li>
+    <a href = "/decision/<%=decision.id%>" >
+      <div>
+      <%=decision.title%>
+      </div>
+    </a>
+  </li>
+  
+  <a href="/decisions/<%=decision.id%>/edit" class="btn btn-warning w-10">
+  <i class="fa fa-fw fa-plus"></i>
+        Edit Decision
+</a>
+  
+  <a href="/delete_decision/<%=decision.id%>" class="btn btn-danger w-10">
+  <i class="fa fa-fw fa-plus"></i>
+        Delete Decision
+</a>
+  
+  <%end%>
+</ul>
+
+<a href="/user">
+  Go back
+</a>

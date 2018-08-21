@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: admin_users
+# Table name: users
 #
 #  id                     :integer          not null, primary key
 #  email                  :string           default(""), not null
@@ -13,21 +13,23 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string
 #  last_sign_in_ip        :string
+#  name                   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
 # Indexes
 #
-#  index_admin_users_on_email                 (email) UNIQUE
-#  index_admin_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
-class AdminUser < ApplicationRecord
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-         
+         has_many :decisions, :dependent => :destroy
+         has_many :options, :dependent => :destroy
          
 end

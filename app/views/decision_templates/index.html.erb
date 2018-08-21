@@ -1,0 +1,42 @@
+<a href="/decisions/new" class="btn btn-primary btn-block">
+  <i class="fa fa-fw fa-plus"></i>
+  Add Decision
+</a>
+
+<hr>
+
+<% @decisions.each do |decision| %>
+
+<div class="card-header">
+    <h4 class="card-title">
+        <a href = "users/<%=decision.user_id%>">
+          <%=decision.user_id%>
+        </a>
+          <%=time_ago_in_words(decision.created_at)%> ago
+    </h4>
+    
+     <h4 class="card-title">
+          <%=decision.title%>
+    </h4>
+    
+</div>
+
+<!-- Edit/Delete Photo -->
+
+<%if current_user.id == decision.user_id %>
+
+<a href="/decisions/<%=decision.id%>/edit" class="btn btn-warning w-100">
+  <i class="fa fa-fw fa-plus"></i>
+        Edit Decision
+</a>
+  
+  <a href="/delete_decision/<%=decision.id%>" class="btn btn-danger w-100">
+  <i class="fa fa-fw fa-plus"></i>
+        Delete Decision
+</a>
+
+<%else%>
+
+<% end %>
+
+<% end %>
