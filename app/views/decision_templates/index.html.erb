@@ -35,6 +35,27 @@
   
 </div>
 
+<!-- Votes Decision -->
+
+<% decision.options.each do |option| %>
+
+<% vote = Vote.where(user_id: current_user.id, option_id: option.id).first %>
+
+<% if vote.present? %>
+    <a href= "/delete_vote/<%=vote.id %>">
+      Remove Vote
+    </a>
+  <%else%>
+<form action ="/create_vote" method = "post">
+  <input type = "hidden" name = "option_id" value = "<%=option.id%>">
+    <input type = "hidden" name = "user_id" value = "<%=current_user.id%>">
+      <button class = "btn btn-link pull-right">
+        Vote
+      </button>
+    </form>
+  <% end %>
+
+  <% end %>
 
 <!-- Comments for Decisions -->
 <% decision.comments.each do |comment| %>
