@@ -1,0 +1,49 @@
+<h1>
+  Vote #<%= @vote.id %> details
+</h1>
+
+<a href="/votes/<%= @vote.id %>/edit">
+  Edit vote
+</a>
+
+<hr>
+
+<dl>
+  <dt>
+    User
+  </dt>
+  <dd>
+    <%= @vote.user_id %>
+  </dd>
+
+  <dt>
+    Option
+  </dt>
+  <dd>
+    <%= @vote.option_id %>
+  </dd>
+
+  <dt>
+    Created at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@vote.created_at) %> ago
+  </dd>
+
+  <dt>
+    Updated at
+  </dt>
+  <dd>
+    <%= time_ago_in_words(@vote.updated_at) %> ago
+  </dd>
+</dl>
+
+<a href="/delete_vote/<%= @vote.id %>">
+  Delete vote
+</a>
+
+<hr>
+
+<a href="/votes">
+  Go back
+</a>

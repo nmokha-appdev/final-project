@@ -1,0 +1,44 @@
+<!-- Validation failure messages -->
+<% if @vote.errors.any? %>
+  <% @vote.errors.full_messages.each do |message| %>
+    <div class="alert">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<h1>
+  Edit vote #<%= @vote.id %>
+</h1>
+
+<hr>
+
+<form action="/update_vote/<%= @vote.id %>" method="post">
+  <!-- Label and input for user_id -->
+  <div class="form-group">
+    <label for="user_id">
+      User
+    </label>
+
+    <input type="text" id="user_id" name="user_id" class="form-control" value="<%= @vote.user_id %>">
+  </div>
+
+  <!-- Label and input for option_id -->
+  <div class="form-group">
+    <label for="option_id">
+      Option
+    </label>
+
+    <input type="text" id="option_id" name="option_id" class="form-control" value="<%= @vote.option_id %>">
+  </div>
+
+  <button class="btn btn-block btn-outline-secondary">
+    Update vote
+  </button>
+</form>
+
+<hr>
+
+<a href="/votes">
+  Go back
+</a>

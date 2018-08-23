@@ -31,5 +31,9 @@ class User < ApplicationRecord
          
          has_many :decisions, :dependent => :destroy
          has_many :options, :dependent => :destroy
+         has_many :comments
+         has_many :commented_decisions, :through => :comments, :source => :decision
+         has_many :votes, :dependent => :destroy
+         has_many :voted_options, :through => :vote, :source => :vote
          
 end

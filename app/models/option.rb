@@ -12,6 +12,10 @@
 
 class Option < ApplicationRecord
     
+    # has_many :fans, :through => :votes, :source => :user
+    has_many :votes, :dependent => :destroy
+    
     belongs_to :user
     belongs_to :decision
+    
 end

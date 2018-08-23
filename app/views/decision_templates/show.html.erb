@@ -1,5 +1,5 @@
 <h1>
-  Decision <%= @decision.id %> details
+  Details for <%= @decision.title %>
 </h1>
 
 <a href="/decisions/<%= @decision.id %>/edit">
@@ -12,6 +12,7 @@
   <dt>
     User
   </dt>
+  
   <dd>
     <%= @decision.user_id %>
   </dd>
@@ -19,6 +20,7 @@
   <dt>
     Title
   </dt>
+  
   <dd>
     <%= @decision.title %>
   </dd>
@@ -26,17 +28,75 @@
   <dt>
     Created at
   </dt>
+  
   <dd>
     <%= time_ago_in_words(@decision.created_at) %> ago
   </dd>
-
+  
   <dt>
     Updated at
   </dt>
+  
   <dd>
     <%= time_ago_in_words(@decision.updated_at) %> ago
   </dd>
+  
+  <dt>
+    Option Set
+  </dt>
+  
+  <dd>
+    <% @decision.options.each do |option|%>
+    <p> <%= option.description %> </p>
+    <% end %>
+  </dd>
+  
+  <dt>
+    Current Outcome
+  </dt>
+  
+  <dd>
+    TBU
+  </dd>
+  
 </dl>
+
+<div>
+  <h2> Comments </h2>
+  <hr>
+  
+  <% @decision.comments.each do |comment| %>
+      <ul class="list-unstyled pt-3">
+        <li class="media mb-2">
+          <div class="media-body">
+            <h6>
+              <a href="/users/<%=comment.user_id%>"><%=comment.user_id%></a>
+              <%=time_ago_in_words(@decision.created_at)%> ago
+            </h6>
+            <%=comment.body%>
+          </div>
+          <!-- media-body -->
+        </li>
+      </ul>
+    <%end%>
+  <li class="list-group-item">
+      <form action="/create_comment" method="post" >
+        <!-- Label and input for title -->
+        <div class="form-group" >
+          <label for="name">
+            Comment
+          </label>
+
+          <input type="text" id="name" name="body" class="form-control" placeholder="Add a comment...">
+          <input type="hidden" name="decision_id" value="<%= @decision.id %>">
+          <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        </div>
+        <button class="btn btn-primary w-100">
+          Add Comment
+        </button>
+      </form>
+  </li>
+</div>
 
 <a href="/delete_decision/<%= @decision.id %>">
   Delete decision

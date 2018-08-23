@@ -9,19 +9,68 @@
 
 <div class="card-header">
     <h4 class="card-title">
-        <a href = "users/<%=decision.user_id%>">
+        <a href = "/users/<%=decision.user_id%>">
           <%=decision.user_id%>
         </a>
           <%=time_ago_in_words(decision.created_at)%> ago
     </h4>
     
-     <h4 class="card-title">
+    <h4 class="card-title">
+        <a href = "/decisions/<%=decision.id%>">
           <%=decision.title%>
+        </a>
     </h4>
     
+    <h6 class="card-title">
+        <% decision.options.each do |option|%>
+        <p> <%= option.description %> </p>
+        <% end %>
+    </h6>
+
+<hr>
+
+    <h6 class="card-title">
+        <p> Current Winner is [TBU] </p>
+    </h6>
+  
 </div>
 
-<!-- Edit/Delete Photo -->
+
+<!-- Comments for Decisions -->
+<% decision.comments.each do |comment| %>
+      <ul class="list-unstyled pt-3">
+        <li class="media mb-2">
+          <div class="media-body">
+            <h6>
+              <a href="/users/<%=comment.user_id%>"><%=comment.user_id%></a>
+              <%=time_ago_in_words(decision.created_at)%> ago
+            </h6>
+            <%=comment.body%>
+          </div>
+          <!-- media-body -->
+        </li>
+      </ul>
+    <%end%>
+
+<li class="list-group-item">
+      <form action="/create_comment" method="post" >
+        <!-- Label and input for title -->
+        <div class="form-group" >
+          <label for="name">
+            Comment
+          </label>
+
+          <input type="text" id="name" name="body" class="form-control" placeholder="Add a comment...">
+          <input type="hidden" name="decision_id" value="<%= decision.id %>">
+          <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        </div>
+        <button class="btn btn-primary w-100">
+          Add Comment
+        </button>
+      </form>
+    </li>
+
+<!-- Edit/Delete Decision -->
 
 <%if current_user.id == decision.user_id %>
 
@@ -30,7 +79,7 @@
         Edit Decision
 </a>
   
-  <a href="/delete_decision/<%=decision.id%>" class="btn btn-danger w-100">
+<a href="/delete_decision/<%=decision.id%>" class="btn btn-danger w-100">
   <i class="fa fa-fw fa-plus"></i>
         Delete Decision
 </a>
@@ -38,5 +87,7 @@
 <%else%>
 
 <% end %>
+
+<hr>
 
 <% end %>

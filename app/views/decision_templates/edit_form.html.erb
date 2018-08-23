@@ -8,13 +8,14 @@
 <% end %>
 
 <h1>
-  Edit decision #<%= @decision.id %>
+  Edit <%= @decision.title %>
 </h1>
 
 <hr>
 
 <form action="/update_decision/<%= @decision.id %>" method="post">
   <!-- Label and input for user_id -->
+  
   <div class="form-group">
     <label for="user_id">
       
@@ -24,6 +25,7 @@
   </div>
 
   <!-- Label and input for title -->
+  
   <div class="form-group">
     <label for="title">
       Title
@@ -32,17 +34,30 @@
     <input type="text" id="title" name="title" class="form-control" value="<%= @decision.title %>">
   </div>
   
-  
-  
-  
-  
-  
-  
-
-  <button class="btn btn-block btn-outline-secondary">
-    Update decision
-  </button>
+  <button>Update Decision</button>
 </form>
+  <!-- Label and input for options -->
+  
+<% @decision.options.each do |option| %>
+  <p>Option <%= option.id %>: <%= option.description %></p>
+  
+  <form action="/update_option/<%= option.id %>" method="post">
+    <div class="form-group">
+      <label for="descrption">      
+        Description
+      </label>
+      
+      <input type="text" id="text" name="description" class="form-control" value="<%=option.try(:description)%>">
+    </div>
+  
+    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+    <input type="hidden"  name="decision_id" value="<%= @decision.id %>">
+    
+    <button class="">
+      Update option <%= option.id %>
+    </button>
+  </form>
+<% end %>
 
 <hr>
 

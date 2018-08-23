@@ -39,7 +39,7 @@ class OptionsController < ApplicationController
 
   def update_row
     @option = Option.find(params.fetch("id_to_modify"))
-
+    @decision = Decision.find(@option.decision_id)
     @option.decision_id = params.fetch("decision_id")
     @option.description = params.fetch("description")
     @option.user_id = params.fetch("user_id")
@@ -47,7 +47,7 @@ class OptionsController < ApplicationController
     if @option.valid?
       @option.save
 
-      redirect_to("/options/#{@option.id}", :notice => "Option updated successfully.")
+      redirect_to("/decisions/#{@decision.id}/edit", :notice => "Option updated successfully.")
     else
       render("option_templates/edit_form.html.erb")
     end

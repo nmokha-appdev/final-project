@@ -12,32 +12,64 @@
 
 <div class="card mt-4">
   <div class="card-header">
-  User Decisions
+  Decisions, Decisions...
 </div>
 
-<ul>
-  <% Decision.where(user_id:@user.id).each do |decision| %>
-  <li>
-    <a href = "/decision/<%=decision.id%>" >
-      <div>
-      <%=decision.title%>
-      </div>
-    </a>
-  </li>
+<hr>
+
+<table>
+  <tr>
+  <th>Title</th>
+  <th>Created At</th>
+  <th># of votes </th>
+  <th>Outcome</th>
+  <th></th>
+  </tr>
   
+  <% Decision.where(user_id:@user.id).each do |decision| %>
+  
+  <tr>
+    <td>
+      <%=decision.title%>
+    </td>
+    <td>
+      <%=time_ago_in_words(decision.created_at)%> ago
+    </td> 
+    <td>
+      TBU
+    </td>
+    <td>
+      TBU
+    </td>
+    
+  
+  <!-- Edit and Delete Decisions -->
+  <td>
   <a href="/decisions/<%=decision.id%>/edit" class="btn btn-warning w-10">
   <i class="fa fa-fw fa-plus"></i>
         Edit Decision
-</a>
+  </a>
+  </td>
   
+  <td>
+  <a href="/decisions/<%=decision.id%>" class="btn btn-success w-10"> 
+  <i class="fa fa-fw fa-plus"></i>
+        Show Details
+  </a>
+  </td>
+  
+  <td>
   <a href="/delete_decision/<%=decision.id%>" class="btn btn-danger w-10">
   <i class="fa fa-fw fa-plus"></i>
         Delete Decision
-</a>
+  </a>
+  </td>
   
   <%end%>
-</ul>
-
-<a href="/user">
+  </tr>
+  </table>
+  
+  
+<a href="/decisions">
   Go back
 </a>

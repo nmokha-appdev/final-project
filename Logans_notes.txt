@@ -1,0 +1,15 @@
+HOW TO CREATE OPTIONS FOR A DECISION
+
+- On Decision new page, you have a dropdown for number of options [Done]
+- In create_decision action in your decision controller
+-- make a new decision and save it
+-- set a variable equal to the number of options from the params hash 
+-- use that variable to create that number of Options
+--- # [YOUR NUMBER OF OPTIONS VARIABLE].to_i.times do 
+        Option.create(user_id: current_user.id, decision_id: @decision.id)
+      end
+-- render "decisions/#{@decision.id}/edit [Done]
+
+- ON THE DECISION EDIT PAGE
+-- loop through all of @decision's options
+    for each option write an html form (with action to the option edit route) with description input

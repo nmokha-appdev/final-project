@@ -13,5 +13,9 @@ class Decision < ApplicationRecord
     
     belongs_to :user
     has_many :options, :dependent => :destroy
+    has_many :comments, :dependent => :destroy
+    has_many :votes, :through => :options
+    has_many :fans, :through => :votes, :source => :user
+    
     
 end
